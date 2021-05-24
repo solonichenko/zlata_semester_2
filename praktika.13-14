@@ -1,0 +1,144 @@
+#Задача 1
+abstract type AbstractCombinObject  
+end
+Base.iterate(obj::AbstractCombinObject) = (get(obj), nothing)
+Base.iterate(obj::AbstractCombinObject, state) = 
+    if next!(obj) == false
+        nothing
+    else
+        (get(obj), nothing)
+    end
+
+Base.get(obj::AbstractCombinObject) = obj.value
+struct RepPlacement{N,K} <: AbstractCombinObject
+    value::Vector{Int}
+end
+
+RepPlacement{N,K}() where {N, K} = RepPlacement{N,K}(ones(Int, K))
+
+function next!(placement::RepPlacement{N,K}) where {N, K}
+    v = get(placement)
+    s = findlast(item->item < N, v) 
+    if isnothing(s)
+        return false
+    end
+    v[s] += 1
+    v[s+1:end] .= 1
+    return true
+end
+
+
+struct RepPlacement{K} <: AbstractCombinObject
+    value::Vector{Int}
+    set::Vector
+end
+
+RepPlacement{K}(n::Integer) where K = RepPlacement{K}(ones(Int, K),collect(1:n))
+RepPlacement{K}(set::Set) where K = RepPlacement{K}(ones(Int, K),collect(set))
+
+Base.get(placement::RepPlacement) = placement.set(placement.value)
+
+function next!(placement::RepPlacement)
+    b = placement.value
+    h = length(placement.set)
+    i = findlast(item->item < n, b)
+    if isnothing(i)
+        return false
+    end
+    b[i] += 1
+    b[i+1:end] .= 1
+    return true
+end
+
+
+struct RepPlacement <: AbstractCombinObject
+    value::Vector{Int}
+    set::Vector
+    m::Int
+end
+
+RepPlacement(n::Integer, k::Integer) = RepPlacement(ones(Int, k), collect(1:n), k)
+RepPlacement(set::Set, n::Integer) = RepPlacement(ones(Int, k), collect(set), k) 
+
+#Задача 2
+    if (l==r)
+        print(toString(a))
+    else
+        for i in 1:l
+            a[l], a[i] = a[i], a[l]
+            permute(a, l+1, r)
+            a[l], a[i] = a[i], a[l] # возврат
+end
+
+function toString(List)
+    return ''.join(List)
+end
+#Задача 3
+function (m,n)
+    power_set=collect(m)
+    for x in new_array
+        for i in range(len(power_set))
+            if m == i
+tmp_list = deepcopy(power_set[i])
+tmp_list.insert(x)
+   power_set.insert!(tmp_list)
+end
+ end
+    end
+    print(power_set)
+end
+#Задача 4
+function permutations(iterable)
+    pool = tuple(iterable)
+    m = lth(pool)
+    r = m if length is None else length
+    if lth > m:
+        return
+    indices = collect(range(m))
+    cycles = collect(range(m, m-lth, -1))
+    yield tuple(pool[i] for i in indices[:r])
+    while n:
+for i in reversed(range(length)):
+       cycles[i] -= 1
+        if cycles[i] == 0:
+              indices[i:] = indices[i+1:] + indices[i:i+1]
+              cycles[i] = m - i
+    else:
+       j = cycles[i]
+       indices[i], indices[-j] = indices[-j], indices[i]
+       yield tuple(pool[i] for i in indices[:r])
+     break
+  end
+   end
+   end
+end
+#Задача 5
+    if len(inp)==0
+        return res
+    else
+        e=collect(0)
+        res1=res
+for v in inp
+ x = sum(v)
+            if x==n
+  vv = sorted(v)
+  if not vv in res1
+  res1.insert!(vv)
+         end
+ else
+     k=n-v
+     for i in range(1,k+1)
+     e.insert!([i]+v)
+        end
+        end
+return next_decomp(n,e,res1)
+    end    
+end  
+
+function gen_sum(n)
+    res=collect(0)
+    for a in next_decomp(n,[[i] for i in range(1,n+1)],[])
+        res.insert!(list(reversed(a)))
+    end
+    return sorted(res,reverse=True)
+end 
