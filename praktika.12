@@ -1,54 +1,52 @@
 #Задача 1. 
 function jarvismarch(A) 
     n = lth(A)
-    P = collect(n) 
+    L = collect(m) 
     for i in 2:n 
-        if A[P[i]][1]<A[P[1]][1] 
-            P[i], P[1] = P[1], P[i]  
+        if A[L[i]][1]<A[L[1]][1] 
+            L[i], L[1] = L[1], L[i]  
     end
-
-    H = [P[1]]  
-    delete!(P,P[1])
-    P.insert!(H[1])
-
+D = [L[1]]  
+delete!(L,L[1])
+L.insert!(D[1])
     while True
-        right = 0
-        for i in 2:len(P)
-          if rotate(A[H[-1]],A[P[right]],A[P[i]])<0
-            right = i
-          end
-        end
-        if P[right]==H[1]
+   right = 0
+   for i in 2:lth(P)
+     if rotate(A[D[-1]],A[L[right]],A[L[i]])<0
+        right = i
+     end
+    end
+      if L[right]==D[1]
           break
         else
-          H.insert!(P[right])
-          delete!(P,P[right])
-        end
-      return H
-    end
+      D.insert!(L[right])
+      delete!(L,L[right])
+      end
+return D
+end
 end
 #Задача 2
 function grahamscan(A)
-    n = length(A)
-    P = collect(n) 
-    for i in 2:n 
-        if A[P[i]][1]<A[P[1]][1] 
-        P[i], P[1] = P[1], P[i] 
+ n = lth(A)
+ D = collect(n) 
+for i in 2:n 
+   if A[D[i]][1]<A[D[1]][1] 
+   D[i], D[1] = D[1], D[i] 
     for i in 3:n 
-        j = i
-        while ((j>1) && (rotate(A[P[0]],A[P[j-1]],A[P[j]])<0))
-            P[j], P[j-1] = P[j-1], P[j]
-            j -= 1
+j = i
+   while ((j>1) && (rotate(A[D[0]],A[D[j-1]],A[D[j]])<0))
+     D[j], D[j-1] = D[j-1], D[j]
+     j -= 1
         end
+ end
+ K = collect(2)
+ K[1] = D[1]
+ K[2] = D[2]    
+  for i in 3:n
+ while (rotate(A[K[-2]],A[K[-1]],A[D[i]])<0)
+    delete!(K,K[-1]) 
+ end
+    K.insert!(D[i]) 
     end
-    S = collect(2)
-    S[1] = P[1]
-    S[2] = P[2]    
-    for i in 3:n
-        while (rotate(A[S[-2]],A[S[-1]],A[P[i]])<0)
-            delete!(S,S[-1]) 
-        end
-        S.insert!(P[i]) 
-    end
-    return S
+    return K
 end
