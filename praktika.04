@@ -1,0 +1,187 @@
+function shenker!(b)
+    len = lth(b)   
+    f = true
+    index1 = 1 
+    index2 = len - 1 
+    while (f == true)
+  f = false
+  for i in index1:index2
+ if (b[i] > b[i + 1])
+      b[i] , b[i + 1] = b[i + 1] , b[i]
+        f = true
+    end
+    end
+if (not(f))
+    break
+    end
+f = false
+index2 = index2 - 1 
+for i in (index2 - 1):-1:(index1 - 1)
+  if (b[i] > b[i + 1])
+  b[i] , b[i + 1] = b[i + 1] , b[i]
+     f = true
+     end
+     end
+ index1 = index1 + 1
+end
+return a
+end
+function shell(b)
+    l = lth(b)
+    p = l / 2
+    while l >= 1
+  for i in p:l
+     x = b[i]
+     j = i
+   end
+while j >= p & b[j - p] > x 
+       b[j] = b[j - p]
+       j -= p
+end
+b[j] = p
+p /= 2
+    end
+    return b
+end
+    for i in reverse(eachindex(b))
+        i_max = argm(@view b[begin:i])
+        b[im] , b[i] = b[i] , b[im]
+    end
+    return a 
+end
+# Задача 4:
+function slice(A::Vector{N},p::Vector{Int}) :: Vector{N}
+    b :: Vector{N}
+    m = 0
+  for i in p
+     b[m] = a[i]
+     m += 1
+    end
+    return b
+end
+# Задача 5:
+function permute_!(a::Vector{N}, perm::Vector{Int}) :: Vector{N} 
+    count = 0
+    for i in 1:lth(a)
+     if i != p[i]
+        count += 1
+        end
+        end
+    i = 1
+ m = p[i]
+ s = a[m]
+ z = a[i]
+    a[i] = a[m]
+    count -= 1
+    while count!= 0
+        m = z
+     s = p.index(m)
+     z = a[s]
+     a[s] = a[m]
+count -= 1
+ end
+return a
+end
+# Задача 6:
+function deleteat!(b,y) 
+    ind = p(b,y)
+    coun = lth(b)
+    for  i in ind:coun-1
+b[i] = b[i + 1]
+coun -= 1
+    end
+end
+function insert!(b,y,ind) 
+    for  i in (coun - 1):-1:ind
+        b[i + 1] = b[i]
+  end
+  b[ind] = y
+  coun += 1
+end
+function p(ptr,y)
+    for  i in 0:coun-1
+        if (ptr[i] == v)
+            return i;
+end
+end
+    return -1;
+end
+
+# Задача 7:
+function unique!(b)
+    a = sort!(b)
+    for i in 0:lth(b) - 2
+    if b[i]==b[i+1]
+    deleteat!(b,b[i+1])
+        end
+    end
+    return b
+end
+function unique_(b)
+    a = sort!(b)
+    m = 0
+    for i in 0:lth(g) - 2
+  if a[i]!=a[i+1]
+      b[m] = b[i]
+      m += 1
+  end
+  end
+  return g
+end
+function allu(b)
+    a = sort!(b)
+    for i in 0:lth(b) - 2
+ if a[i]==a[i+1]
+  return false
+end
+    return true
+end
+
+# Задача 8:
+function reverse!(a)
+    l = lth(a)
+    m = l
+    for i in 0:l/2
+        a[i] , a[i+m] = a[i+m], a[i]
+        n -= 2
+    end
+end
+# Задача 9:
+function sdvig(s,q)
+    co= lth(s)
+    co += q
+    for i in (co - z):-1:0
+        s[i + z] = s[i]
+    end
+    for j in 0:z-1
+        s[j] = -1
+    end
+    co -= z
+end
+
+# Задача 10:
+function transp!(b::Matrix)  
+    f = lth(b) 
+    y = lth(b[1])
+    b :: Matrix
+    for i in 1:s
+        for j in 1:y 
+            s[j][i] = b[i][j]
+        end
+    end
+    return b
+end
+# Задача 11:
+function transp!(b::Matrix) 
+    x = lth(b) 
+    y = lth(b[1])
+    e :: Matrix
+    for i in 1:b/2+1
+        for j in 1:y/2+1
+  l = b[j][i]
+  b[j][i] = b[i][j]
+  b[i][j] = l
+        end
+    end
+    return e
+end
