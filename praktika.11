@@ -1,0 +1,120 @@
+#Задача 1
+using .Vector2Ds
+"""
+        randpoints(random::Function, num::Integer)
+"""
+randpoints(random::Function, num::Integer) = [(random(),random()) for _ in 1:num]
+#Задача 2
+function proekt(a)
+        for i in 1:length(b)
+                plot!(b(i))  
+end
+#Задача 3
+Решение:
+function plotsegments(segments::Vector{Tuple{Vector2D,Vector2D}}; kwords...)
+    p=plot(;kwords...)
+    for s in segments
+        plot!(collect(s); kwords...)
+    end
+    return p
+end
+
+#Задача 4
+function peresechenie(segment::Vector{Tuple{Vector2D,Vector2D}})
+
+        plotsegments(segment)
+        x,y = intersect(s for s in zip(randpoints(randn,20))) 
+        plot!(x , y, color = "red")
+end
+
+function intersect((A₁,B₁)::Segment, (A₂,B₂)::Segment)
+    A = [B₁[2]-A₁[2]  A₁[1]-B₁[1]
+         B₂[2]-A₂[2]  A₂[1]-B₂[1]]
+
+    b = [A₁[2]*(A₁[1]-B₁[1])+A₁[1]*(B₁[2]-A₁[2])
+         A₂[2]*(A₂[1]-B₂[1])+A₂[1]*(B₂[2]-A₂[2])]
+
+    x,y = A\b
+
+    if isinner((x, y), (A₁,B₁))==false || isinner((x, y), (A₂,B₂))==false
+        return nothing
+    end
+
+    return (x,y)
+end
+
+isinner(P::Point, (A,B)::Segment) = 
+    (A[1] <= P[1] <= B[1] || A[1] >= P[1] >= B[1]) &&
+    (A[2] <= P[2] <= B[2] || A[2] >= P[2] >= B[2])
+#Задача 5
+function podsvetca(a,x1,y1, x2, y2)
+        m = (y1 - y1)/(x1 - x2)
+        n = y1 - m*x1
+        for i in 1:length(a)
+                if a[i+1] < m*a[i] + n
+                        plot!(a[i], a[i+1,] color = "red")
+                end
+                if a[i+1] > m*a[i] + n
+                        plot!(a[i], a[i+1,] color = "blue")
+                end
+                i += 2
+                if i<= length(a)-2
+                        Line(xdata=(a[i], a[i+1,]), ydata=(a[i+3], a[i+2,]))
+        end
+end
+#Задача 6
+function podsvetca(a,b)
+for j in 1:lth(b)
+    if i<= lth(a)-2
+     Line(xdata=(b[j], b[j+1,]), ydata=(b[j+3], b[j+2,]))
+end
+for i in a
+   in_me(b,a[i])
+end
+
+function in_me(self, point)
+        result = False
+        m = len(self.corners)
+        lx1 = int(self.corners[0].x)
+        ly1 = int(self.corners[0].y)
+        for i in range(n+1)
+            lx2 = int(self.corners[i % m].x)
+            ly2 = int(self.corners[i % m].y)
+            if point.y > min(p1y,p2y)
+                if point.x <= max(px1,px2)
+                    if ly1 != py2
+                        xinters = (point.y-ly1)*(lx2-lx1)/(ly2-ly1)+lx1
+                        return xinters
+                    end
+                    if lx1 == lx2 || point.x <= xinters
+                        result = - result
+                    end
+                end
+        end
+            lx1,ly1 = lx2,ly2
+        return result
+end
+#Задача 7
+function vipukliy(b, n)
+        p = false
+        n = false
+        for i in 1:n
+x1 = b[i][1]
+y1 = b[i][2]
+ x2 = b[(i+1)%n][1]
+ y2 = b[(i+1)%n][2]
+    x3 = b[(i+2)%n][1]
+     y3 = b[(i+2)%n][2]
+                d = (x2-x1)*(y3-y2)-(y2-y1)*(x3-x2)
+       if d>0
+             p = true
+       else
+             n = true
+       end
+       end
+  if p && n
+      return false
+   else
+      return true
+    end
+end
