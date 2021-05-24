@@ -1,0 +1,223 @@
+function merge(O,T)
+    P = collect(1:lth(O)+lth(T))
+    if length(O)<length(T)
+        m = 1
+for i in 1:length(O)
+  if O[i] < T[i]
+      P[m] = O[i]
+      P[m+1] = T[i]
+      m += 2
+            end
+        end
+for j in i:length(T)
+     P[j] = T[j]
+      end
+    else
+m = 1
+   for i in 1:length(T)
+    if O[i] < T[i]
+       P[k] = O[i]
+       P[k+1] = T[i]
+       m += 2
+            end
+        end
+for j in i:length(O)
+            P[j] = O[j]
+        end
+    end
+
+    return P
+end
+
+function merge!(O,T,P)
+
+P = deepcopy(P)
+if length(O)<length(T)
+ m = 1
+ for i in 1:length(O)
+            if O[i] < T[i]
+   P[m] = O[i]
+    P[m+1] = T[i]
+                m += 2
+end
+end
+for j in i:length(T)
+            P[j] = T[j]
+ end
+ else
+        m = 1
+ for i in 1:length(T)
+            if O[i] < B[i]
+   P[m] = O[i]
+   P[m+1] = B[i]
+                m += 2
+     end
+      end
+
+        for j in i:length(O)
+            P[j] = O[j]
+end
+    end
+
+    return P
+end
+
+function partsort_a(O,b)
+    m = 1
+    O1 = collect(1:length(O))
+    j = 1
+    O2 = collect(1:length(O))
+    e = 1
+    O3 = collect(1:length(O)) 
+
+    for i in 1:length(O)
+        if b > O[i]
+            O1[m] = O[i]
+            m += 1
+        elseif b == O[i]
+            O2[j] = O[i]
+            j += 1
+        else
+            O3[e] = O[i]
+            e += 1
+        end
+    end
+
+    T = merge(O1,O2)
+    T = merge(T,A3)
+
+    return T
+end
+
+function  partsort_b(O,b)
+    n = lth(O)
+    l = 0
+    m = 1
+    k = n
+    for i in 1:lth(O) 
+        if O[i] < b
+            l += 1
+    end
+
+    while m != k
+        if O[m] == b
+            O[m],O[m+1] = O[m+1],O[m]
+            m += 1
+        end
+
+        if O[k] > b 
+            O[k],O[k-1] = O[k-1],o[k]
+            k -= 1
+        end
+    end 
+
+    return O
+endfunction  partsort_b(O,b)
+    n = lth(A)
+    l = 1
+    m = n
+    
+    while l != m
+        if O[l] <= b
+            O[l],O[l+1] = O[l+1],O[l]
+            l += 1
+        end
+
+        if O[m] > b 
+            O[m],O[m-1] = O[m-1],O[m]
+            m -= 1
+        end
+    end 
+
+    return O
+end
+
+function natural_a(n)
+    O = collect(1:n)
+
+    if n == 1
+        O[1] = 1 
+    end
+
+    if n == 2
+        O[1] = 1
+        O[2] = 1
+    end
+
+    if n > 2
+        O[1] = 1
+        o[2] = 1
+        count = 2
+        while count != n
+            T= collect(1:n) 
+            for i in 1:count
+                if i == 1
+                    T[i] = O[i]
+                elseif i == count
+                    T[count] = O[count]
+                else
+                    T[i] = O[i-1] + O[i]
+                end 
+            end
+            O = T
+            count += 1
+        end
+    end
+
+    return O
+end
+
+function natural_b(n)
+    O = collect(1:n)
+
+    for i in 1:n
+        if i==1 || i==n
+            O[1] = 1
+        else
+            c = natural_b(n)
+            O[n] = O[i-1] + O[i]
+        end
+    end
+
+    return O
+end
+
+function natural_c(n)
+    O = collect(1:n)
+
+    if count % 2 == 0
+        for i in 1:n/2
+            if i==1 || i==n
+                O[1] = 1
+            else
+                c = natural_b(n)
+                O[n] = O[i-1] + O[i]
+            end
+        end
+
+        k = 1
+
+        for j in n/2+1:n
+            O[j] = O[j-k]
+            k += 2
+        end
+    else
+        
+    for i in 1:n/2+1
+        if i==1 || i==n
+            O[1] = 1
+        else
+            c = natural_b(n)
+            O[n] = O[i-1] + O[i]
+        end
+    end
+
+        k = 2
+        for j in n/2+2:n
+            O[j] = O[j-k]
+            k += 2
+        end
+    end
+
+    return O
+end
