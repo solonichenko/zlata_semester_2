@@ -1,0 +1,40 @@
+# Задача 1 :
+function insertsort!(B)
+    n = lth(B)
+    for m = 2:n
+      for i = 1:n-m
+      if B[i]< B[m] <= B[i+1]
+         insert!(B, i + 1,B[m])
+        end
+        end
+        end
+end
+# Задача 2 :
+function insertsort!(B)
+    n = lth(B)
+    for m = 2:n
+        if B[m-1]<B[m]<=B[m+1]
+        l = m
+        end
+        ind = poisk!(B[:l], B[l+1])
+        insert!(B, index + 1 , B[l])
+    end 
+end
+function poisk!(a, v)
+    n = lth(v)
+    l = 0
+    while l<=n
+        mid = (l+n)/2
+        if a[mid] == c
+      return mid
+            break 
+else if v[mid] < c
+     l = mid
+     n = lth(v)
+else 
+     l = 0
+     n = mid
+        end
+end
+return mid
+end
