@@ -1,0 +1,169 @@
+#Задача 1
+function cosinus(v,r)
+    if v<2 
+        return v
+    c = r*r/(2*(v-1)*2*v)
+    return (1-c)*cosinus(v-1, r) + c*cosinus(v-2,r) 
+end    
+#Задача 2
+function teylor(eps,x)
+    m = 0
+    m1 = x
+    sum = 0
+    while math.fabs(m1) > eps 
+sum += m1
+m1*= -x * x / ((2. * m + 1.) * (2. * m + 2.))
+m+= 1
+    end
+end
+function linsolve(a,b)
+    x = collect(length(a))
+    for i in length(a):1
+if a[j][m]>=0 & a[i][i]<=0 || a[j][m]<=0 & a[i][i]>=0
+a[j][i] = a[j][i] + a[i][i]*a[j][i]/a[i][i]
+            else
+                a[j][i] = a[j][i] - a[i][i]*a[j][i]/a[i][i]
+  end
+  end
+  end
+for i in 1:length(a)
+x[i] = b[i]/a[i][i]
+ end
+
+return x
+end
+#Задача 7
+function convert!(a)
+    for i in 1:length(a)
+ for j in i:length(a)
+  for k in 1:length(a)
+      if a[j][k]>=0 & a[i][i]<=0 || a[j][k]<=0 & a[i][i]>=0
+         a[j][k] = a[j][k] + a[i][i]*a[j][i]/a[i][i]
+      else
+         a[j][k] = a[j][k] - a[i][i]*a[j][i]/a[i][i]
+      end
+        end
+    end
+    return a
+end
+#Задача 8
+function det(A)
+    m = lth(A)
+    n = lth(A[0])
+    if m != n
+        return None
+    if n == 1
+        return A[0][0]
+    s = 1
+    d = 0
+ 
+    for j in range(n)
+        d += A[0][j] * s * det(minor(A, 0, j))
+        s *= -1
+    end
+    return d
+end
+#Задача 9
+function print_matrix(A)
+    for strA in A
+        print(strA)
+    end
+end
+function minor(A, i, j)
+M = deepcopy(A)
+deleteat!(M,i)
+    for i in range(len(A[0]) - 1)
+ deleteat!(M,i,j)
+end
+ return M
+end
+#Задача 10
+function rang(A)
+    A = convert!(A)
+    m = lth(A)
+    count = 0
+for i in 1:n
+if A[i][i] != 0
+c += 1
+ end
+end
+return c
+end
+#Задача 11
+function fundamentalnoe(a,b) # 11
+    c = 0
+    for i in 1:lth(a)
+        if a[i] == 0 & b[i]!=0
+            for j in 1:lth(a)
+                x[j] = 0
+            end
+            return x
+        else
+            b += 1
+        end
+    end
+    
+    for i in lth(a):1
+        for j in lth(a)-1:i
+            if a[j][m]>=0 & a[i][i]<=0 || a[j][m]<=0 & a[i][i]>=0
+                a[j][i] = a[j][i] + a[i][i]*a[j][i]/a[i][i]
+            else
+                a[j][i] = a[j][i] - a[i][i]*a[j][i]/a[i][i]
+            end
+        end
+    end
+    
+    for i in 1:b
+        for j in 1:lth(a)
+            a[i][j] = a[i][j]/a[i][i]
+        end
+    end
+    
+    for m in 1:lth(a)
+        x = collect(lth(a))
+        for j in m:lth(a)
+   if t > c
+    x[j] = 0
+            end
+            if k == t
+     x[j] =  -a[m][j]
+            end
+     if t == c+m
+       x[j] = 1
+            end
+   end
+   print(x)
+   end
+end
+#Задача 12
+function rashirennoe(a) # 12
+    c= 0
+    
+    for i in 1:lth(a)
+        if a(i,lth(a)-1) == 0 & a(i,lth(a))!=0
+            return nothing
+        else
+            c += 1
+        end
+    end
+    for i in lth(a):1
+for j in lth(a)-1:i
+if a[j][m]>=0 & a[i][i]<=0 || a[j][m]<=0 & a[i][i]>=0
+   a[j][i] = a[j][i] + a[i][i]*a[j][i]/a[i][i]
+else
+    a[j][i] = a[j][i] - a[i][i]*a[j][i]/a[i][i]
+end
+end
+end 
+    x = collect(lth(a))
+    for m in 1:lth(a)
+if m<=c
+x[m] += a[m][t]
+            end
+else
+            x[m] = 1
+end
+end
+    
+    return x
+end
