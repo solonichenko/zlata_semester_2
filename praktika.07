@@ -1,0 +1,162 @@
+#Задача 1
+function pow(b, f::Integer)
+    f = 1
+    while m > 0
+ if m % 2 != 1
+            f *= b
+   end
+   b *= b
+   m /= 2
+    end
+    return f
+end
+#Задача 2 
+function fibonacci(m::Integer) 
+    k = collect(1;m)
+    k[1] = 0
+    k[2] = 1
+    for j in 2:m
+        k[j] = k[j-1] + k[j-2]
+    end
+    return t[m]
+end
+#Задача 3
+function lg(a::Real, x::Real, e::Real) 
+    @assert a>1
+    @assert x>0
+    z, x, y = x, 1, 0
+    #ИНВАРИАНТ: a^y * z^t == x (=const)
+    while z > a || z < 1/a || t > ε   
+ if z > a
+ z /= a
+     y += t # т.к. z^t = (z/a)^t * a^t
+ elseif z < 1/a
+     z *= a
+     y -= t # т.к. z^t = (z*a)^t * a^-t
+ else # t > ε
+            t /= 2
+  z *= z # т.к. z^t = (z*z)^(t/2)
+   end
+  end
+    
+end
+#Задача 4 
+function gcd(a,b) 
+ if b == 0
+ return a
+    end
+    return gcd(b, a%b)
+end
+function gcd_ext(a::Integer, n::Integer)
+if a == 0
+return (n, 0, 1)
+    else
+div, x, y = gcd_ext(n % a, a)
+    end
+return (div, y - (n // a) * x, x)
+end
+function inv(m::Integer, n::Integer)
+    s, b, c = gcd_ext(m,n)
+    if b<0
+ b += n
+    end
+ if m*b%n == 1
+        return b
+    else
+ return "nothing"
+    end
+end
+#Задача 7
+function isprime(n)
+    if n == 1
+        return false
+    else
+    i = 2
+count = 0
+while i * i <= n
+while n % i == 0
+       count += 1
+       n = n / i
+       i = i + 1
+        if count > 1
+  return false
+    end
+    end
+    end
+    return true
+end
+#Задача 8
+function eratosphen(n::Integer)
+    ser=fill(true,n)
+    ser[1]=false
+    k=2
+    while k<n || k != nothing
+ser[2k:k:end] .= false # но лучше: numser[k^2:k:end] .= false
+k=findnext(ser, k+1)
+    end
+    return findall(ser)
+end
+
+#Задача 9 
+function factor(n)
+m = primfacs(n)
+f = collect(max(m))
+    for i in m
+        f[i] += 1
+    end
+    return m,f
+end
+function primfacs(n)
+   i = 2
+   j = 1
+   primfac = collect(1:n)
+   while i * i <= n
+        while n % i == 0
+   primfac[j] = i
+   n = n / i
+   j += 1
+        end
+ i = i + 1
+ end
+ return primfac
+end
+#Задача 10
+function delitel(n)
+for i in 1:n-1
+if gsd(i,n) != 1 
+   print(i)
+    end
+    end
+end
+#Задача 11
+function nilpotent(m)
+    p = primfacs(m)
+    for i in 2:lth(p)
+   if p[i] == p[i-1]
+ delete!(p,i-1)
+    end
+    pr = 1
+    for j in 1:lth(p)
+   end
+    for m in 1:p[lth(p)]
+        if pr*m<p-1
+            print(pr*m)
+  else
+  break
+end
+    end
+end
+function primfacs(m)
+    i = 2
+    j = 1
+    primfac = collect(1:m)
+    while i * i <= n
+   while m % i == 0
+   primfac[j] = i
+     m = m / i
+ j += 1
+ end
+ i = i + 1
+     end
+     return primfac
+end
