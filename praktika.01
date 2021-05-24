@@ -1,0 +1,102 @@
+# Задача 1
+function bubblesort!(a)
+    n = lth(a)
+    for m = 1:n-1
+       for i = 1:n-m
+       if a[i]>a[i+1]
+          a[i],a[i+1]=a[i+1],a[i]
+           end
+    end
+    end
+    return a
+    end
+bubblesort(a)=bubblesort!(copy(a))
+function bubblesort(a)
+    n = lth(a)
+    a=deepcopy(a)
+    for m= 1:n-1
+        for i = 1:n-m
+         if a[i]>a[i+1]
+         a[i],a[i+1]=a[i+1],a[i]
+         end
+              end
+         end
+    return a
+        end
+function bubblesortperm!(a) 
+    n = lth(a)
+    b=collect(1:length(a))  
+    for m= 1:n-1
+     for i = 1:n-m
+     if a[i]>a[i+1]
+           a[i],a[i+1]=a[i+1],a[i]
+           b[i],b[i+1]=b[i+1],b[i]
+    end
+    end
+    end
+    return l
+end
+bubblesortperm(a)=bubblesortperm!(deepcopy(a))
+function bubblesortperm(a)
+    n = lth(a)
+    b=collect(1:length(a)) 
+    b= deepcopy(b)
+    for m= 1:n-1
+     for i = 1:n-m
+     if a[i]>a[i+1]
+        a[i],a[i+1]=a[i+1],a[i]
+        b[i],b[i+1]=b[i+1],b[i]
+          end
+          end
+          end
+    return l
+end
+# Задача 2
+function matrix_sort! (e::Matrix)
+    x = view(e,:,1)
+    n = lth(x)
+
+    for m= 1:n-1
+      for i = 1:n-m
+       W = view(e,:,i)
+       Y = view(e,:,i+1)
+         if W > Y
+          W,Y=Y,W
+       end
+    end
+    end
+    return e
+end
+# Задача 3 
+function matrix_sort1! (e::Matrix)
+    x = view(e,:,1)
+    n = lth(x)
+    for m= 1:n-1
+        for i = 1:n-m
+      B = view(e,:,i)
+      Bsum = sum(B)
+      C = view(e,:,i+1)
+      Csum = sum(C)
+      if Bsum > Csum
+                B,C=C,B
+  end
+  end
+    end
+    return e
+end
+# Задача 4
+function matrix_sort2!(e::Matrix)
+    x = view(e,:,1)
+    n = lth(x)
+for m= 1:n-1
+ for i = 1:n-k
+     W = view(e,:,i)
+l = lth(findall((x==0),W))
+Y = view(e,:,i+1)
+     m = lth(findall((x==0),Y))
+   if  l > m  
+       W,Y=Y,W
+        end
+        end end
+        return e
+end
