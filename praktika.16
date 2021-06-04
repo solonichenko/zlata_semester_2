@@ -1,89 +1,151 @@
+# Задача 1:
+# Написать функцию, получающую на вход весовую матрицу некоторого графа (в которой некоторым ребрам может быть приписан бесконечно большой вес), 
+# и возвращающую кортеж из числа, равного стоимости оптимального гамильтонова цикла, и вектор, в качестве своих элементов содержащий вектора с перестановками индексов вершин графа, 
+# соответствующих всем оптимальным гамильтоновым циклам.
+# Указание. Для генерации последовательности перестановок воспользоваться соответствующим результатом практического занятия 13.
+
 function komovo(G)
-   min = (1:size(G,1))
-   while !isnothing(p)
-        p = next_permute!(p)
-        m=0
-        n=0
-        m +=G[min[i];min[i+1]] for i in 1:length(min)-1
-        n +=G[p[i];p[i+1]] for i in 1:length(p)-1
-        if m>p
-            min=p
-        end
-    return min
-end
+    min = (1:size(G,1))
+    while !isnothing(p)
+         p = next_permute!(p)
+         m=0
+         n=0
+         m +=G[min[i];min[i+1]] for i in 1:length(min)-1
+         n +=G[p[i];p[i+1]] for i in 1:length(p)-1
+         if m>p
+             min=p
+         end
+     return min
+ end
+ 
+ function next_permute!(p::AbstractVector)
+     k = firstindex(p)-1
+     for i in lastindex(p)-1:-1:firstindex(p)
+         if p[i] < p[i+1]
+             k=i
+             break
+         end
+     end
+     if k == firstindex(p)-1 
+         return nothing
+     end
+     i=k+1
+     while i < lastindex(p) && p[i+1] > p[k]
+         i+=1
+     end
+     p[k], p[i] = p[i], p[k]
+     reverse!(@view p[k+1:end])
+     return p
+ end
 
-function next_permute!(p::AbstractVector)
-    k = firstindex(p)-1
-    for i in lastindex(p)-1:thumbsdown:firstindex(p)
-        if p[i] < p[i+1]
-            k=i
-            break
-        end
-    end
-    if k == firstindex(p)-1 
-        return nothing
-    end
-    i=k+1
-    while i < lastindex(p) && p[i+1] > p[k]
-        i+=1
-    end
-    p[k], p[i] = p[i], p[k]
-    reverse!(@view p[k+1:end])
-    return p
-end
-1
-вместо смайлика
-:
--1:
-function ford_bellman_prev(G::AbstractMatrix, s::Integer)
+# Задача 2:
+#  Реализовать и протестировать алгоритм Форда-Беллмана.
+
+function ford_bellman(G::AbstractMatrix, s::Integer)
     n = size(G,1)
-    prev = zeros(Int, n-1, n)
-    C = repeat(G[s,:], n-1) 
-    for k in 2:n-1, j in 2:n, i in 1:n
-        if C[k,i] > C[k,i] + G[i,j]
-            C[k,j] = C[k,i] + G[i,j]
-            prev[k,j] = i
-        end
-    end
-    for j in 2:n, i in 1:n
-        if C[n-1,i] + G[i,j] < 0
-            throw("Граф содержит отрицателный цикл")
-        end
-    end
-    return C, prev 
-end
-
-function optpath_ford_bellman(prev::Matrix, j::Integer, k_max = size(prev,1))
-    path=Vector{Int}(undef, k_max)
-    k = size(prev,1)
-    while prev[k,j]==0
-        k-=1
-    end
-    k=min(k,k_max)
-    while j != 0 
-        path[k] = j
-        j = prev[k,j]
-        k -= 1
-    end
-    if k > 0
-        return nothing
-    end
-
-    return path
-end
-2
-function floyd(G::AbstractMatrix)
-    n=size(A,1)
-    C=Array{eltype(G),2}(undef,n,n) 
-    C=G
-    for k in 1:n, i in 1:n, j in 1:n
-        C[i,j]=min(C[i,j], C[i,k]+C[k,k,j])
-    end
-    for j in 2:n, i in 1:n
-        if C[n-1,i] + G[i,j] < 0
-            throw("Граф содержит отрицателный цикл")
+    C = G[s,:]
+    for k in 0:n-2, j in 1:n, i in 1:n
+        if C[j] > C[i] + G[i,j]
+            C[j] = C[i] + G[i,j]
         end
     end
     return C
 end
-4
+
+##Протестировал
+#S = [0 4 3 5;4 0 0 5;0 0 0 6; 5 3 5.0 0]
+#res = [11.0 9.0 0.0 6.0] - все верно
+
+# Задача 3:
+# Оценить асимптотическую сложность спроектированного алгоритма Форда-Беллмана (почему правильный ответ - $O(n^3)$?).
+# Как можно было бы модернизировать разработанный алгоритм, чтобы его алгоритмическая сложность оценивалась как $O(n\cdot n_e)$, где $n_e$ - 
+# число ребер (конечного веса) в графе? (подсказка: если в графе много фактически отсутствующих ребер, то для представления такого графа целесообразно воспользоваться 
+# разреженными массивами, см. лекцию 7, пункт 1.4).
+
+#O(n^3), т.к мы ищем минимальное(1 цикл) для пути из одной в каждую другую(2 цикл) с n-1 пробегами(3 цикл)
+#Воспользоваться разреженными матрицами, и сравнивать пути только для сущ. ребер
+
+# Задача 4:
+# Реализовать и протестировать алгоритм Флойда, включив в этот алгоритм проверку отсутствия циклов отрицательного суммарного веса.
+# Замечание. Если кроме вычисления матрицы минимальных стоимостей "переездов" (из каждой $i$-ой вершины в каждую $j$-ую) требуется определять 
+# соответсвующие оптимальные маршруты, то для этого одновременно с матрицей минимальных стоимостей "переездов" можно формировать матрицу next размера $n\cdot n$,
+# в которой на $(i,j)$-позиции будет записываться индекс вершины, сразу следующей за вершиной с индексом $i$ в оптимальном маршруте, ведущем из $i$-ой вершины в $j$-ую.
+
+function floyd(G::AbstractMatrix)
+    n=size(G,1)
+    C=Array{eltype(G),2}(undef,n,n)
+    C=G
+    for k in 1:n, i in 1:n, j in 1:n
+        C[i,j]=min(C[i,j], C[i,k]+C[k,j])
+    end
+    return C
+end
+
+# Задача 5: Написать функцию floyd_next(G::Matrix), отличающуюся от определенной выше функции floyd(G::Matrix) тем, что она возвращает не только матрицу минимальных 
+# стоимостей "переездов" C, но и матрицу next, т.е. возвращает кортеж (C, next).
+
+function floyd_next(G::AbstractMatrix)
+    n=size(G,1)
+    C=Array{eltype(G),2}(undef,n,n)
+    next=Array{eltype(G),2}(undef,n,n)
+    for i in 1:n
+        for j in 1:n
+            next[i,j] = j
+        end
+    end
+    C=G
+    for k in 1:n, i in 1:n, j in 1:n
+        if C[i,j] > C[i,k]+C[k,j]
+            C[i,j]=min(C[i,j], C[i,k]+C[k,j])
+            next[i,j] = k
+        end
+    end
+    return C,next
+end
+
+# Задача 6: Написать функцию optpath_floyd(next::AbstractMatrix, i::Integer, j::Integer), которая бы по аналогии с функцией optpath_ford_bellman возвращала бы оптимальный путь,
+# ведущий из заданной вершины i в заданную вершину j, если существует такой путь конечной стоимости, или - значение nothing, в противном случае.
+
+function optpath_floyd(next::AbstractMatrix, i::Integer, j::Integer)
+    path= [i]
+    fin = i
+    while (fin!=j)
+        push!(path,next[fin,j])
+        fin = next[fin,j]
+    end
+    return path
+end
+
+# Задача 7:
+# Реализовать алгоритм Дейкстры, написав функцию dijkstra(G::AbstractMatrix, s::Integer), возвращающую вектор минимальных стоимостей путей из заданной вершины с индексом s
+# во все остальные вершины.
+
+function dijkstra(G::AbstractMatrix,s::Integer)
+    n = size(G,1)
+    d = Int64[]
+    used = Bool[]
+    for i in 1:n
+        push!(d,G[s,i])
+        push!(used,false)
+    end
+    d[s] = 0
+    ind = 0
+    cur = 0
+    for _ in 1:n
+        min = 1e8
+        for j in 1:n
+            if !used[j] && d[j]<min
+                min = d[j]
+                ind = j
+            end
+        end
+        cur = ind
+        used[cur] = true
+        for j in 1:n
+            if !used[j] && G[cur,j]!=1e8 && d[cur]!= 1e8 && d[cur]+G[cur,j]<d[j]
+                d[j] = d[cur] + G[cur,j]
+            end
+        end
+    end
+    return d
+end
